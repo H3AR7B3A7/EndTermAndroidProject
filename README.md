@@ -17,5 +17,6 @@ Special thanks to: Swasse
 ## License & copyright
 
 © leonaire87 &amp; Sabahdo &amp; H3AR7B3A7
+Department Design & Technologie of the Erasmus Highschool in Brussels
 
 Licensed under the [Apache license](LICENSE).
