@@ -2,7 +2,7 @@
 End term assignment for the city of Brussels
 
 Authors: 	leonaire87 &amp; Sabahdo &amp; H3AR7B3A7<br>
-Property of: Erasmus highschool of Bruxelles
+Property of: Erasmus highschool of Brussels
 
 The assignment was to create an application for the city of Brussels.
 It had to showcase data of a striproute provided by an api by the city and store it locally.
