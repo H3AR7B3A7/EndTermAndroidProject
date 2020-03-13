@@ -12,3 +12,10 @@ We had about 3 weeks to present the results.
 This was an early introduction to android development and in no way intended for commercial use.
 
 Special thanks to: Swasse
+
+
+## License & copyright
+
+© leonaire87 &amp; Sabahdo &amp; H3AR7B3A7
+
+Licensed under the [Apache](LICENSE).
