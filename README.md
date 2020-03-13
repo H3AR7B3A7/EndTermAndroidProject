@@ -18,4 +18,4 @@ Special thanks to: Swasse
 
 © leonaire87 &amp; Sabahdo &amp; H3AR7B3A7
 
-Licensed under the [Apache](LICENSE).
+Licensed under the [Apache license](LICENSE).
