@@ -2,6 +2,9 @@ package be.SabahLeanderSteven.endtermandroidproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -11,6 +14,9 @@ import com.google.android.material.tabs.TabLayout;
 import be.SabahLeanderSteven.endtermandroidproject.util.TabPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
+
+    private AppBarConfiguration appBarConfiguration;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,5 +36,10 @@ public class MainActivity extends AppCompatActivity {
         // Setup
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 }
