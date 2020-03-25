@@ -7,15 +7,14 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "locations")
 public class Location {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
 
     private int year;
     private String characters, authors, photo, coordinates;
 
-    public Location(int id, int year, String characters, String authors, String photo, String coordinates) {
-        this.id = id;
+    public Location(int year, String characters, String authors, String photo, String coordinates) {
         this.year = year;
         this.characters = characters;
         this.authors = authors;
