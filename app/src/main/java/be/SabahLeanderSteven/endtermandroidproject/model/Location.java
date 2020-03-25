@@ -1,6 +1,5 @@
 package be.SabahLeanderSteven.endtermandroidproject.model;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -8,7 +7,6 @@ import androidx.room.PrimaryKey;
 public class Location {
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
     private int id;
 
     private int year;
@@ -42,9 +40,7 @@ public class Location {
         return characters;
     }
 
-    public void setCharacters(String characters) {
-        this.characters = characters;
-    }
+    public void setCharacters(String characters) { this.characters = characters; }
 
     public String getAuthors() {
         return authors;
