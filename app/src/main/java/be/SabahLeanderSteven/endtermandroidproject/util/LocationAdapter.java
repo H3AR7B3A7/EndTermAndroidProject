@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> implements Filterable {
 
+
+
     class LocationViewHolder extends RecyclerView.ViewHolder {
         public LocationViewHolder(@NonNull View itemView) {
             super(itemView);
