@@ -1,45 +1,74 @@
 package be.SabahLeanderSteven.endtermandroidproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.NavController;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
+import android.view.MenuItem;
 
-import com.google.android.material.tabs.TabLayout;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import be.SabahLeanderSteven.endtermandroidproject.util.TabPagerAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import be.SabahLeanderSteven.endtermandroidproject.fragments.HomeFragment;
+import be.SabahLeanderSteven.endtermandroidproject.fragments.ListFragment;
+import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private NavController navController;
+//    private AppBarConfiguration appBarConfiguration;
+//    private NavController navController;
 
+    /**
+     * ON CREATE METHOD
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // UI Component references
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        ViewPager viewPager = findViewById(R.id.fragContainer);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
         // Behaviour
-        TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), 0);
+
 
         // Setup
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
-    }
+    /**
+     * BOTTOM NAVIGATION
+     */
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        /**
+         * ON NAVIGATION ITEM SELECTED
+         * @param item: selected menu item from bottom_navigation
+         * @return Fragment
+         */
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment = null;
+
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    selectedFragment = new HomeFragment();
+                    break;
+                case R.id.nav_map:
+                    selectedFragment = new MapFragment();
+                    break;
+                case R.id.nav_list:
+                    selectedFragment = new ListFragment();
+                    break;
+            }
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, selectedFragment).commit();
+            return true;
+        }
+    };
+
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
+//    }
 }

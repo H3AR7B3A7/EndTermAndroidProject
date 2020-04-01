@@ -20,12 +20,22 @@ public class DetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * FACTORY METHOD
+     * @return new Instance of ListFragment
+     */
+    public static DetailsFragment newInstance(){ return new DetailsFragment();}
 
+    /**
+     * ON CREATE VIEW METHOD
+     * @param inflater: LayoutInflater for fragment_details
+     * @param container: ViewGroup to inflate layout in
+     * @param savedInstanceState: Bundle to pass saved instance state
+     * @return Inflation of Details Fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+        return inflater.inflate(R.layout.fragment_details, container, false);
     }
 }
