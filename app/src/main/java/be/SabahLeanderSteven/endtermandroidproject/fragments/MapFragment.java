@@ -22,16 +22,6 @@ public class MapFragment extends Fragment {
     private MapView mapView;
     private GoogleMap myMap;
 
-    /**
-     * ON MAP READY
-     */
-    private OnMapReadyCallback onMapReady = new OnMapReadyCallback() {
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            myMap = googleMap;
-        }
-    };
-
     public MapFragment() {
         // Required empty public constructor
     }
@@ -41,7 +31,6 @@ public class MapFragment extends Fragment {
      * @return new Instance of MapFragment
      */
     public static MapFragment newInstance(){return new MapFragment();}
-
 
     /**
      * ON CREATE VIEW METHOD
@@ -53,7 +42,6 @@ public class MapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
         mapView = rootView.findViewById(R.id.mapView);
@@ -62,6 +50,17 @@ public class MapFragment extends Fragment {
 
         return rootView;
     }
+
+    /**
+     * ON MAP READY
+     * Callback on completion of async task
+     */
+    private OnMapReadyCallback onMapReady = new OnMapReadyCallback() {
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
+            myMap = googleMap;
+        }
+    };
 
     /**
      * GOOGLE MAP LIFECYCLE

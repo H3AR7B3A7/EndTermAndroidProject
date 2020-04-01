@@ -25,7 +25,6 @@ public class HomeFragment extends Fragment {
      */
     public static HomeFragment newInstance(){return new HomeFragment();}
 
-
     /**
      * ON CREATE VIEW METHOD
      * @param inflater: LayoutInflater for fragment_home
@@ -36,7 +35,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
