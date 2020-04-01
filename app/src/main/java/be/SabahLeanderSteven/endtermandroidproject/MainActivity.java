@@ -1,30 +1,26 @@
 package be.SabahLeanderSteven.endtermandroidproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 
 import be.SabahLeanderSteven.endtermandroidproject.fragments.HomeFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.ListFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
-import be.SabahLeanderSteven.endtermandroidproject.util.TabPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
 //    private AppBarConfiguration appBarConfiguration;
 //    private NavController navController;
 
+    /**
+     * ON CREATE METHOD
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +37,20 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
     }
 
+    /**
+     * BOTTOM NAVIGATION
+     */
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        /**
+         * ON NAVIGATION ITEM SELECTED
+         * @param item: selected menu item from bottom_navigation
+         * @return Fragment
+         */
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
 
-            switch(item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.nav_home:
                     selectedFragment = new HomeFragment();
                     break;

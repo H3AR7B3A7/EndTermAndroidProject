@@ -1,6 +1,5 @@
 package be.SabahLeanderSteven.endtermandroidproject.fragments;
 
-
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,6 +22,9 @@ public class MapFragment extends Fragment {
     private MapView mapView;
     private GoogleMap myMap;
 
+    /**
+     * ON MAP READY
+     */
     private OnMapReadyCallback onMapReady = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
@@ -30,17 +32,24 @@ public class MapFragment extends Fragment {
         }
     };
 
-
-
     public MapFragment() {
         // Required empty public constructor
     }
 
-    // Factory Method
+    /**
+     * FACTORY METHOD
+     * @return new Instance of MapFragment
+     */
     public static MapFragment newInstance(){return new MapFragment();}
 
 
-    // Lifecycle
+    /**
+     * ON CREATE VIEW METHOD
+     * @param inflater: LayoutInflater for fragment_map
+     * @param container: ViewGroup to inflate layout in
+     * @param savedInstanceState: Bundle to pass saved instance state
+     * @return Inflation of Map Fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,6 +63,9 @@ public class MapFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * GOOGLE MAP LIFECYCLE
+     */
     @Override
     public void onResume() {
         super.onResume();
