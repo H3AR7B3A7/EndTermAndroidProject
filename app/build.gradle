@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        alpha {
+            storeFile file('..\\EndTermAndroidProject\\KeyStore\\keystore.jks')
+            storePassword 'password'
+            keyAlias = 'EndTermAndroidProject'
+            keyPassword 'password'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
@@ -15,6 +23,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.alpha
         }
     }
     compileOptions {
