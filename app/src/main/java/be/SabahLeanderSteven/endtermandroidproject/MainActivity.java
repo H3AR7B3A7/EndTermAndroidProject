@@ -2,6 +2,8 @@ package be.SabahLeanderSteven.endtermandroidproject;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,15 +28,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // NAVIGATION
         // UI Component references
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
-        // Behaviour
-
-
         // Setup
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
+
+        // HOMEFRAGMENT
+        // UI Components references
+        ImageView logoIV = findViewById(R.id.logo_iv);
+        ImageButton aboutBTN = findViewById(R.id.about_ib);
     }
 
     /**
