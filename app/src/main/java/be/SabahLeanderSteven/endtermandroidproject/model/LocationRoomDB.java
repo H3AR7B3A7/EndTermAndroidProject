@@ -41,9 +41,9 @@ public abstract class LocationRoomDB extends RoomDatabase {
     };
 
 
-    // TODO : Figure out whether populating inner class is needed when fetching data in LocationViewModel
+    // TODO : Figure out whether we need populating inner class (factory data)
     /**
-     * Inner class to populate db in background
+     * Inner class to populate db in background (with test Location-Object)
      */
     static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 

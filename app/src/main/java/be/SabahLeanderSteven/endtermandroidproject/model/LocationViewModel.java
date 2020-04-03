@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
@@ -71,19 +72,24 @@ public class LocationViewModel extends AndroidViewModel {
                 JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                 JSONArray jsonArray = jsonObject.getJSONArray("records");
 
-                System.out.println(jsonObject.toString());
-
                 //TODO : Dit hieronder deftig uitzoeken
 
-                int year = jsonObject.getInt("annee");
-                String characters = jsonObject.getString("personage_s");
-                String authors = jsonObject.getString("auteur_s");
-                String coordinates = jsonObject.getString("coordinates");
-                String photo = jsonObject.getString("filename");
+                ArrayList<Location> locations = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject fields = jsonArray.getJSONObject(i).getJSONObject("fields");
 
-                Location location = new Location(year, characters, authors, coordinates, photo);
+                    final Location currentLocation = new Location(
+                            Integer.parseInt(fields.getString("annee")),
+                            fields.getString("personnage_s"),
+                            fields.getString("auteur_s"),
+                            fields.getJSONObject("photo").getString("filename"),
+                            fields.getString("coordonnees_geographiques")
+                    );
 
-                insertLocation(location);
+                    locations.add(currentLocation);
+                    LocationRoomDB.getDatabase(getApplication()).locationDAO().insert(currentLocation);
+                }
+
 
             } catch (IOException | JSONException exception) {
                 exception.printStackTrace();
