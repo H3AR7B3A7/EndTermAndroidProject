@@ -10,7 +10,7 @@ import java.util.List;
 public class LocationRepository {
 
     private LocationDAO mLocationDao;
-    private LiveData<List<Location>> mAllLocations;
+    private List<Location> mAllLocations;
 
     LocationRepository(Application application){
         LocationRoomDB db = LocationRoomDB.getDatabase(application);
@@ -18,7 +18,7 @@ public class LocationRepository {
         mAllLocations = mLocationDao.getAllLocations();
     }
 
-    LiveData<List<Location>> getAllLocations(){
+    List<Location> getAllLocations(){
         return mAllLocations;
     }
 

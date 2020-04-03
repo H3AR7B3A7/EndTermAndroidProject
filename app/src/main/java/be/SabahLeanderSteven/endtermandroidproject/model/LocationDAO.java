@@ -1,6 +1,5 @@
 package be.SabahLeanderSteven.endtermandroidproject.model;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -17,6 +16,9 @@ public interface LocationDAO {
     void deleteAll();
 
     @Query("SELECT * from locations")
-    LiveData<List<Location>> getAllLocations();
+    List<Location> getAllLocations();
+
+    @Query("SELECT * FROM locations WHERE id LIKE :id")
+    Location findLocationById(String id);
 
 }
