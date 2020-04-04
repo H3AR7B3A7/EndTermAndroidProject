@@ -52,8 +52,13 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * SHOW POPUP
+     */
     private void showPopup(){
         aboutPopup.setContentView(R.layout.about_popup);
+        // TODO : Setup popup content here ...
+
         aboutPopup.show();
     }
 
