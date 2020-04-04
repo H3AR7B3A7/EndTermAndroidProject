@@ -1,11 +1,7 @@
 package be.SabahLeanderSteven.endtermandroidproject;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +14,6 @@ import be.SabahLeanderSteven.endtermandroidproject.fragments.ListFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-//    private AppBarConfiguration appBarConfiguration;
-//    private NavController navController;
-    private Dialog myDialog;
 
     /**
      * ON CREATE METHOD
@@ -38,16 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
-        myDialog = new Dialog(this);
-    }
-
-    public void showPopup(View v){
-        // UI Components references
-        ImageView logoIV = findViewById(R.id.logo_iv);
-        ImageButton aboutBTN = findViewById(R.id.about_ib);
-
-        myDialog.setContentView(R.layout.about_popup);
-        myDialog.show();
     }
 
     /**
@@ -75,13 +57,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
 
+            assert selectedFragment != null;
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, selectedFragment).commit();
             return true;
         }
     };
-
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
-//    }
 }
