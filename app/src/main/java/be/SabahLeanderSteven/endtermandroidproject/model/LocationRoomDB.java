@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -14,9 +13,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 public abstract class LocationRoomDB extends RoomDatabase {
 
     public abstract LocationDAO locationDAO();
+
     private static LocationRoomDB INSTANCE;
 
-    static LocationRoomDB getDatabase(final Context context){
+    static LocationRoomDB getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (LocationRoomDB.class) {
                 if (INSTANCE == null) {
@@ -32,7 +32,7 @@ public abstract class LocationRoomDB extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback(){
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
@@ -42,6 +42,7 @@ public abstract class LocationRoomDB extends RoomDatabase {
 
 
     // TODO : Figure out whether we need populating inner class (factory data)
+
     /**
      * Inner class to populate db in background (with test Location-Object)
      */
@@ -52,7 +53,7 @@ public abstract class LocationRoomDB extends RoomDatabase {
         Location test = new Location(2020, "Testies", "Testers", "test.jpg", "00, 00");
         Location[] locations = {test};
 
-        PopulateDbAsync(LocationRoomDB db){
+        PopulateDbAsync(LocationRoomDB db) {
             mDao = db.locationDAO();
         }
 

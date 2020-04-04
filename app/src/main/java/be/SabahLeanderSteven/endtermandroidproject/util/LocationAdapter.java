@@ -42,7 +42,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     }
 
     // ADD LOCATIONS TO RV
-    public void addLocations(ArrayList<Location> locations){
+    public void addLocations(ArrayList<Location> locations) {
         items.clear();
         items.addAll(locations);
         OGitems = locations;
@@ -61,10 +61,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
 
     @Override
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
-        if (items.size() > 0 && position < items.size()){
+        if (items.size() > 0 && position < items.size()) {
             Location currentLocation = items.get(position);
-            if(!currentLocation.getPhoto().equals("Unknown")){
-                Picasso.get().load("https://opendata.brussel.be/explore/dataset/striproute0/files/"+currentLocation.getPhoto()+"/download").into(holder.photoIV);
+            if (!currentLocation.getPhoto().equals("Unknown")) {
+                String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
+                        + currentLocation.getPhoto()
+                        + "/download";
+                Picasso.get().load(path).into(holder.photoIV);
             }
         }
     }
