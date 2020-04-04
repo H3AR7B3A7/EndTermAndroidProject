@@ -19,8 +19,6 @@ import okhttp3.Response;
 
 public class LocationViewModel extends AndroidViewModel {
 
-    // TODO : make recyclerview or pins on map to getAllLocations from mRepository so this code actually runs. And match the SysOut to the object.
-
     private LocationRepository mRepository;
     private LiveData<ArrayList<Location>> mAllLocations;
     private ExecutorService threadExecutor = Executors.newFixedThreadPool(4);

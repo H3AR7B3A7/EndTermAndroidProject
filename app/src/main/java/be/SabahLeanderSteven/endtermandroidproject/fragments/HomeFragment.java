@@ -62,4 +62,5 @@ public class HomeFragment extends Fragment {
         aboutPopup.show();
     }
 
+    // TODO : Add db Async task here somewhere to start DL in background
 }
