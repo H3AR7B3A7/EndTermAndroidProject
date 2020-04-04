@@ -5,20 +5,22 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocationRepository {
 
     private LocationDAO mLocationDao;
-    private List<Location> mAllLocations;
+    private LiveData<ArrayList<Location>> mAllLocations;
 
     LocationRepository(Application application){
         LocationRoomDB db = LocationRoomDB.getDatabase(application);
         mLocationDao = db.locationDAO();
-        mAllLocations = mLocationDao.getAllLocations();
+        //TODO: WTF is da me die live data en (array)lists???  Ik blijf mar heen en weer gaan, ik weet het ook ni.
+        mAllLocations = (LiveData<ArrayList<Location>>) mLocationDao.getAllLocations();
     }
 
-    List<Location> getAllLocations(){
+    LiveData<ArrayList<Location>> getAllLocations(){
         return mAllLocations;
     }
 

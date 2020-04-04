@@ -22,7 +22,7 @@ public class LocationViewModel extends AndroidViewModel {
     // TODO : make recyclerview or pins on map to getAllLocations from mRepository so this code actually runs. And match the SysOut to the object.
 
     private LocationRepository mRepository;
-    private List<Location> mAllLocations;
+    private LiveData<ArrayList<Location>> mAllLocations;
     private ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
     public LocationViewModel(Application application) {
@@ -32,7 +32,7 @@ public class LocationViewModel extends AndroidViewModel {
 
     }
 
-    public List<Location> getAllLocations() {
+    public LiveData<ArrayList<Location>> getAllLocations() {
         // Check if not already present before fetching??
         fetchComicBookLocations();
 
