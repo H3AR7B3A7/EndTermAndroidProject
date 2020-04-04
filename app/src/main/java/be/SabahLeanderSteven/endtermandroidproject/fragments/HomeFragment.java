@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import java.util.Objects;
 
@@ -20,8 +19,7 @@ import be.SabahLeanderSteven.endtermandroidproject.R;
  */
 public class HomeFragment extends Fragment {
 
-    Dialog aboutPopup;
-    ImageButton wtfButton;
+    private Dialog aboutPopup;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -46,20 +44,15 @@ public class HomeFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        wtfButton = rootView.findViewById(R.id.about_ib);
+        ImageButton wtfButton = rootView.findViewById(R.id.about_ib);
         aboutPopup = new Dialog(Objects.requireNonNull(getContext()));
 
-        wtfButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopup();
-            }
-        });
+        wtfButton.setOnClickListener(v -> showPopup());
 
         return rootView;
     }
 
-    public void showPopup(){
+    private void showPopup(){
         aboutPopup.setContentView(R.layout.about_popup);
         aboutPopup.show();
     }

@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    selectedFragment = new HomeFragment();
+                    selectedFragment = HomeFragment.newInstance();
                     break;
                 case R.id.nav_map:
-                    selectedFragment = new MapFragment();
+                    selectedFragment = MapFragment.newInstance();
                     break;
                 case R.id.nav_list:
-                    selectedFragment = new ListFragment();
+                    selectedFragment = ListFragment.newInstance();
                     break;
             }
 
