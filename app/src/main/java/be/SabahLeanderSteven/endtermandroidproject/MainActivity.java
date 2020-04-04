@@ -1,7 +1,9 @@
 package be.SabahLeanderSteven.endtermandroidproject;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
 //    private AppBarConfiguration appBarConfiguration;
 //    private NavController navController;
+    private Dialog myDialog;
 
     /**
      * ON CREATE METHOD
@@ -35,11 +38,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
+        myDialog = new Dialog(this);
+    }
 
-        // HOMEFRAGMENT
+    public void showPopup(View v){
         // UI Components references
         ImageView logoIV = findViewById(R.id.logo_iv);
         ImageButton aboutBTN = findViewById(R.id.about_ib);
+
+        myDialog.setContentView(R.layout.about_popup);
+        myDialog.show();
     }
 
     /**

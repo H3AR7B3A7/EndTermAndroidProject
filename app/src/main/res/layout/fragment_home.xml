@@ -39,6 +39,7 @@
                 app:layout_constraintTop_toTopOf="@+id/logo_iv" />
 
             <ImageButton
+                android:onClick="showPopup"
                 android:id="@+id/about_ib"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
