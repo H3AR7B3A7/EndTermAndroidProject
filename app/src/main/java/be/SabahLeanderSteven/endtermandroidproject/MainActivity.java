@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
                     currentDataSelected = "SCULPTURES";
                     newHomeFragment = HomeFragment.newInstance(currentDataSelected);
                     break;
-
-
             }
             assert newHomeFragment != null;
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, newHomeFragment).commit();
