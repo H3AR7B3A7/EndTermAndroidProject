@@ -57,6 +57,11 @@ public class ListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 
+        if (getArguments() != null){
+            subject = getArguments().getString(SUBJECT);
+        }
+        String sideBarItemID = subject;
+
         RecyclerView locationRV = rootView.findViewById(R.id.rv_locations);
         locationRV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
 

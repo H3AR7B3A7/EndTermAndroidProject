@@ -54,6 +54,11 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
+        if (getArguments() != null){
+            subject = getArguments().getString(SUBJECT);
+        }
+        String sideBarItemID = subject;
+
         mapView = rootView.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(onMapReady);
