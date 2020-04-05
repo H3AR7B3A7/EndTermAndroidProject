@@ -1,5 +1,6 @@
 package be.SabahLeanderSteven.endtermandroidproject;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -8,12 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import be.SabahLeanderSteven.endtermandroidproject.fragments.HomeFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.ListFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Context context;
 
     /**
      * ON CREATE METHOD
@@ -28,9 +32,28 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
+        // SIDEBAR Components
+        NavigationView sideNavigationView = findViewById(R.id.sidebar);
+        sideNavigationView.setNavigationItemSelectedListener(sidebarListener);
+
         // Setup
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
     }
+
+    /**
+     * SIDEBAR NAVIGATION
+     */
+    private NavigationView.OnNavigationItemSelectedListener sidebarListener = new NavigationView.OnNavigationItemSelectedListener(){
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.comics_checked:
+                    // What needs to happen when Comic Books is pressed goes here
+                    //TODO : Find a way to flip booleans for data selection
+            }
+            return false;
+        }
+    };
 
     /**
      * BOTTOM NAVIGATION

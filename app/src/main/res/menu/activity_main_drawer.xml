@@ -4,8 +4,8 @@
     tools:showIn="navigation_view">
 
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/comics_checked"
         android:icon="@android:drawable/ic_menu_day"
-        android:title="@string/home" />
+        android:title="Comic Books" />
 
 </menu>
