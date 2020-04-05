@@ -23,6 +23,9 @@ import be.SabahLeanderSteven.endtermandroidproject.util.LocationAdapter;
  */
 public class ListFragment extends Fragment {
 
+    private static final String SUBJECT = "argSubject";
+    private String subject; // Use this as id for sidebar selection
+
     private LocationAdapter adapter;
 
     public ListFragment() {
@@ -33,8 +36,13 @@ public class ListFragment extends Fragment {
      * FACTORY METHOD
      * @return new Instance of ListFragment
      */
-    public static ListFragment newInstance() {
-        return new ListFragment();
+    public static ListFragment newInstance(String subject) {
+        ListFragment listFragment = new ListFragment();
+        Bundle args = new Bundle();
+        args.putString(SUBJECT, subject);
+        listFragment.setArguments(args);
+
+        return listFragment;
     }
 
     /**
