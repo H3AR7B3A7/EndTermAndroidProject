@@ -1,6 +1,5 @@
 package be.SabahLeanderSteven.endtermandroidproject;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -16,8 +15,6 @@ import be.SabahLeanderSteven.endtermandroidproject.fragments.ListFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-    private Context context;
 
     /**
      * ON CREATE METHOD
