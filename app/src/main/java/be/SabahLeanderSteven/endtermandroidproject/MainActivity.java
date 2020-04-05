@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // NAVIGATION
-        // UI Component references
+        // UI Components
+        // NAVIGATION Component
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationView sideNavigationView = findViewById(R.id.sidebar);
         sideNavigationView.setNavigationItemSelectedListener(sidebarListener);
 
-        // Setup
+        // SETUP First Fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
     }
 
