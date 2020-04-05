@@ -73,14 +73,6 @@ public class MainActivity extends AppCompatActivity {
     };
 
     /**
-     * GET THE SELECTED ITEM IN SIDEBAR (for rv and map-pins)
-     * @return currentDataSelected
-     */
-    public String getCurrentDataSelected(){
-        return currentDataSelected;
-    }
-
-    /**
      * BOTTOM NAVIGATION
      */
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
