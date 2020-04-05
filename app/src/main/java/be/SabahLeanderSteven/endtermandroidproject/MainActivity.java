@@ -16,6 +16,8 @@ import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    String currentDataSelected = "comics";
+
     /**
      * ON CREATE METHOD
      */
@@ -49,10 +51,15 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.comics_pressed:
                     newHomeFragment = HomeFragment.newInstance("COMICS");
+                    // TODO : Find a way to flip boolean for data selection
+                    currentDataSelected = "comics";
                     break;
                 case R.id.sculptures_pressed:
                     newHomeFragment = HomeFragment.newInstance("SCULPTURES");
-                    // TODO : Find a way to flip booleans for data selection
+                    // TODO : Find a way to flip boolean for data selection
+                    currentDataSelected = "sculptures";
+                    break;
+
 
             }
             assert newHomeFragment != null;
@@ -60,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    /**
+     * GET THE SELECTED ITEM IN SIDEBAR (for rv and map-pins)
+     * @return currentDataSelected
+     */
+    public String getCurrentDataSelected(){
+        return currentDataSelected;
+    }
 
     /**
      * BOTTOM NAVIGATION
