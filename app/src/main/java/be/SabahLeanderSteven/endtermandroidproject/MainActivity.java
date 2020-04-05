@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         sideNavigationView.setNavigationItemSelectedListener(sidebarListener);
 
         // SETUP First Fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, HomeFragment.newInstance("COMICS")).commit();
     }
 
     /**
@@ -43,12 +43,21 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView.OnNavigationItemSelectedListener sidebarListener = new NavigationView.OnNavigationItemSelectedListener(){
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Fragment newHomeFragment = null;
+
             switch (item.getItemId()){
-                case R.id.comics_checked:
-                    // What needs to happen when Comic Books is pressed goes here
-                    //TODO : Find a way to flip booleans for data selection
+                case R.id.comics_pressed:
+                    newHomeFragment = HomeFragment.newInstance("COMICS");
+                    break;
+                case R.id.sculptures_pressed:
+                    newHomeFragment = HomeFragment.newInstance("SCULPTURES");
+                    // TODO : Find a way to flip booleans for data selection
+
             }
-            return false;
+            assert newHomeFragment != null;
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, newHomeFragment).commit();
+            return true;
         }
     };
 
@@ -67,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    selectedFragment = HomeFragment.newInstance();
+                    selectedFragment = HomeFragment.newInstance("COMICS");
                     break;
                 case R.id.nav_map:
                     selectedFragment = MapFragment.newInstance();
