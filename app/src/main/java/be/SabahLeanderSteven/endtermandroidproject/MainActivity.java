@@ -16,7 +16,7 @@ import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    String currentDataSelected = "comics";
+    String currentDataSelected = "COMICS";
 
     /**
      * ON CREATE METHOD
@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
      * SIDEBAR NAVIGATION
      */
     private NavigationView.OnNavigationItemSelectedListener sidebarListener = new NavigationView.OnNavigationItemSelectedListener(){
+        /**
+         * ON NAVIGATION ITEM SELECTED
+         * @param item: selected menu item from sidebar
+         * @return Fragment
+         */
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -50,14 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.comics_pressed:
-                    newHomeFragment = HomeFragment.newInstance("COMICS");
-                    // TODO : Find a way to flip boolean for data selection
-                    currentDataSelected = "comics";
+                    currentDataSelected = "COMICS";
+                    newHomeFragment = HomeFragment.newInstance(currentDataSelected);
+                    // TODO : Pass currentDataSelected as argument of newInstance in SIDEBAR NAVIGATION for data selection in map and list
                     break;
                 case R.id.sculptures_pressed:
-                    newHomeFragment = HomeFragment.newInstance("SCULPTURES");
-                    // TODO : Find a way to flip boolean for data selection
-                    currentDataSelected = "sculptures";
+                    currentDataSelected = "SCULPTURES";
+                    newHomeFragment = HomeFragment.newInstance(currentDataSelected);
                     break;
 
 
@@ -91,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    selectedFragment = HomeFragment.newInstance("COMICS");
+                    selectedFragment = HomeFragment.newInstance(currentDataSelected);
                     break;
                 case R.id.nav_map:
                     selectedFragment = MapFragment.newInstance();
