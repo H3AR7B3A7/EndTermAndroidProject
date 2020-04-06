@@ -68,13 +68,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         if (items.size() > 0 && position < items.size()) {
             Location currentLocation = items.get(position);
             // TODO : Search the null object reference ^^
-//            if (currentLocation.getCharacters().equals("")) {
-//                holder.charactersTV.setText("Characters");
-//            }else{
-//                holder.charactersTV.setText(currentLocation.getCharacters());
-//            }
+            if (!currentLocation.getCharacters().equals("Unspecified")) {
+                holder.charactersTV.setText(currentLocation.getCharacters());
+            }
 
-            if (!currentLocation.getPhoto().equals("pic")) {
+            if (!currentLocation.getPhoto().equals("Unspecified")) {
                 String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
                         + currentLocation.getPhoto()
                         + "/download";
