@@ -24,12 +24,10 @@ import okhttp3.Response;
 public class LocationViewModel extends AndroidViewModel {
 
     private LocationRepository mRepository;
-    private ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
     public LocationViewModel(Application application) {
         super(application);
         mRepository = new LocationRepository(application);
-        fetchComicBookLocations();
     }
 
     public LiveData<List<Location>> getAllLocations() {
@@ -51,41 +49,5 @@ public class LocationViewModel extends AndroidViewModel {
     }
 
 
-    private void fetchComicBookLocations() {
-        threadExecutor.execute(() -> {
-            Log.e("DATA", "Start fetching");
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url("https://bruxellesdata.opendatasoft.com/api/records/1.0/search/?dataset=comic-book-route&rows=58")
-                    .get().build();
 
-            try {
-                Response response = client.newCall(request).execute();
-                JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
-                JSONArray jsonArray = jsonObject.getJSONArray("records");
-
-                //TODO : Look into the following ...
-
-                ArrayList<Location> locations = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject fields = jsonArray.getJSONObject(i).getJSONObject("fields");
-
-                    final Location currentLocation = new Location(
-                            Integer.parseInt(fields.getString("annee")),
-                            (fields.has("personnage_s"))?fields.getString("personnage_s"):"Unspecified", //controle of iets ingevuld
-                            fields.getString("auteur_s"),
-                            (fields.has("photo"))?fields.getJSONObject("photo").getString("id"):"Unspecified",
-                            fields.getString("coordonnees_geographiques")
-                    );
-
-                    locations.add(currentLocation);
-                    LocationRoomDB.getDatabase(getApplication()).locationDAO().insert(currentLocation);
-                }
-
-
-            } catch (IOException | JSONException exception) {
-                exception.printStackTrace();
-            }
-        });
-    }
 }

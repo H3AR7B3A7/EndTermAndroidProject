@@ -16,7 +16,7 @@ public abstract class LocationRoomDB extends RoomDatabase {
 
     private static LocationRoomDB INSTANCE;
 
-    static LocationRoomDB getDatabase(final Context context) {
+    public static LocationRoomDB getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (LocationRoomDB.class) {
                 if (INSTANCE == null) {
