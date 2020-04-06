@@ -21,7 +21,7 @@ import java.util.List;
 import be.SabahLeanderSteven.endtermandroidproject.R;
 import be.SabahLeanderSteven.endtermandroidproject.model.Location;
 
-public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> {
+public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> implements Filterable{
 
     class LocationViewHolder extends RecyclerView.ViewHolder {
         // Fields
@@ -89,9 +89,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         return items.size();
     }
 
-//    //TODO: Override rv filter
-//    @Override
-//    public Filter getFilter() {
-//        return null;
-//    }
+    //TODO: Override rv filter
+    @Override
+    public Filter getFilter() {
+        return null;
+    }
 }
