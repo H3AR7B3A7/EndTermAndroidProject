@@ -26,14 +26,15 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     class LocationViewHolder extends RecyclerView.ViewHolder {
         // Fields
         final ImageView photoIV;
-        final TextView charactersTV;
+        final TextView charactersTV, authorTV;
 
         // Constructor
         LocationViewHolder(@NonNull View itemView) {
             super(itemView);
             // Constructor params
             this.photoIV = itemView.findViewById(R.id.card_iv);
-            this.charactersTV = itemView.findViewById(R.id.characters_tv);
+            this.charactersTV = itemView.findViewById(R.id.card_characters_tv);
+            this.authorTV = itemView.findViewById(R.id.card_authors_tv);
         }
     }
 
@@ -68,9 +69,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         if (items.size() > 0 && position < items.size()) {
             Location currentLocation = items.get(position);
             // TODO : Search the null object reference ^^
-//            if (!currentLocation.getCharacters().equals("Unspecified")) {
-//                holder.charactersTV.setText(currentLocation.getCharacters());
-//            }
+            if (!currentLocation.getCharacters().equals("Unspecified")) {
+                holder.charactersTV.setText(currentLocation.getCharacters());
+            }
+
+            holder.authorTV.setText(currentLocation.getAuthors());
 
             if (!currentLocation.getPhoto().equals("Unspecified")) {
                 String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
