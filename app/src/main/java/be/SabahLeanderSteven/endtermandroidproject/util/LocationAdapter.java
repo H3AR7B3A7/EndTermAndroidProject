@@ -68,7 +68,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
         if (items.size() > 0 && position < items.size()) {
             Location currentLocation = items.get(position);
-            // TODO : Search the null object reference ^^
+
             if (!currentLocation.getCharacters().equals("Unspecified")) {
                 holder.charactersTV.setText(currentLocation.getCharacters());
             }

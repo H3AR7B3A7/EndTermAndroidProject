@@ -15,7 +15,6 @@ public class LocationRepository {
     LocationRepository(Application application){
         LocationRoomDB db = LocationRoomDB.getDatabase(application);
         mLocationDao = db.locationDAO();
-        //TODO: WTF is da me die live data en (array)lists???  Ik blijf mar heen en weer gaan tussen de twee, ik weet het ook ni.
     }
 
     LiveData<List<Location>> getAllLocations(){
