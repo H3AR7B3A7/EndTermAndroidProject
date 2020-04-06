@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/comics_pressed"
+        android:icon="@android:drawable/ic_menu_day"
+        android:title="Comic Books" />
+    <item
+        android:id="@+id/sculptures_pressed"
+        android:icon="@android:drawable/ic_menu_day"
+        android:title="Sculptures" />
+
+</menu>

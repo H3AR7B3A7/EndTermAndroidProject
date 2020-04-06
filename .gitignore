@@ -12,3 +12,8 @@
 /captures
 .externalNativeBuild
 .cxx
+
+#Store
+/app/release
+/KeyStore
+

@@ -19,6 +19,9 @@ import be.SabahLeanderSteven.endtermandroidproject.R;
  */
 public class MapFragment extends Fragment {
 
+    private static final String SUBJECT = "argSubject";
+    private String subject; // Use this as id for sidebar selection
+
     private MapView mapView;
     private GoogleMap myMap;
 
@@ -30,7 +33,14 @@ public class MapFragment extends Fragment {
      * FACTORY METHOD
      * @return new Instance of MapFragment
      */
-    public static MapFragment newInstance(){return new MapFragment();}
+    public static MapFragment newInstance(String subject){
+        MapFragment mapFragment = new MapFragment();
+        Bundle args = new Bundle();
+        args.putString(SUBJECT, subject);
+        mapFragment.setArguments(args);
+
+        return mapFragment;
+    }
 
     /**
      * ON CREATE VIEW METHOD
@@ -43,6 +53,11 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+
+        if (getArguments() != null){
+            subject = getArguments().getString(SUBJECT);
+        }
+        String sideBarItemID = subject;
 
         mapView = rootView.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);

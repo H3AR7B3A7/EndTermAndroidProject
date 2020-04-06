@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">EndTermAndroidProject</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">I ♥ Brussels Comics</string>
+    <string name="home">Home</string>
+    <string name="map">Map</string>
+    <string name="list">List</string>
+    <string name="comics">COMICS</string>
+    <string name="ByAuthors"><![CDATA[By Sabah, Leander & Steven]]></string>
+    <string name="test">Comics2</string>
 </resources>

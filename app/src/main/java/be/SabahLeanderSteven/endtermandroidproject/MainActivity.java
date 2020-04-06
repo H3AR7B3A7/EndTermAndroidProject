@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import be.SabahLeanderSteven.endtermandroidproject.fragments.HomeFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.ListFragment;
@@ -15,8 +16,7 @@ import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private AppBarConfiguration appBarConfiguration;
-//    private NavController navController;
+    String currentDataSelected = "COMICS";
 
     /**
      * ON CREATE METHOD
@@ -26,16 +26,49 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // UI Component references
+        // UI Components
+        // NAVIGATION Component
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
-        // Behaviour
+        // SIDEBAR Components
+        NavigationView sideNavigationView = findViewById(R.id.sidebar);
+        sideNavigationView.setNavigationItemSelectedListener(sidebarListener);
 
-
-        // Setup
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment()).commit();
+        // SETUP First Fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, HomeFragment.newInstance("COMICS")).commit();
     }
+
+    /**
+     * SIDEBAR NAVIGATION
+     */
+    private NavigationView.OnNavigationItemSelectedListener sidebarListener = new NavigationView.OnNavigationItemSelectedListener(){
+        /**
+         * ON NAVIGATION ITEM SELECTED
+         * @param item: selected menu item from sidebar
+         * @return Fragment
+         */
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Fragment newHomeFragment = null;
+
+            switch (item.getItemId()){
+                case R.id.comics_pressed:
+                    currentDataSelected = "COMICS";
+                    newHomeFragment = HomeFragment.newInstance(currentDataSelected);
+                    // TODO : Pass currentDataSelected as argument of newInstance in SIDEBAR NAVIGATION for data selection in map and list
+                    break;
+                case R.id.sculptures_pressed:
+                    currentDataSelected = "SCULPTURES";
+                    newHomeFragment = HomeFragment.newInstance(currentDataSelected);
+                    break;
+            }
+            assert newHomeFragment != null;
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, newHomeFragment).commit();
+            return true;
+        }
+    };
 
     /**
      * BOTTOM NAVIGATION
@@ -52,23 +85,19 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    selectedFragment = new HomeFragment();
+                    selectedFragment = HomeFragment.newInstance(currentDataSelected);
                     break;
                 case R.id.nav_map:
-                    selectedFragment = new MapFragment();
+                    selectedFragment = MapFragment.newInstance(currentDataSelected);
                     break;
                 case R.id.nav_list:
-                    selectedFragment = new ListFragment();
+                    selectedFragment = ListFragment.newInstance(currentDataSelected);
                     break;
             }
 
+            assert selectedFragment != null;
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, selectedFragment).commit();
             return true;
         }
     };
-
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
-//    }
 }
