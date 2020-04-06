@@ -74,7 +74,7 @@ public class LocationViewModel extends AndroidViewModel {
                             Integer.parseInt(fields.getString("annee")),
                             (fields.has("personnage_s"))?fields.getString("personnage_s"):"Unspecified", //controle of iets ingevuld
                             fields.getString("auteur_s"),
-                            fields.getJSONObject("photo").getString("filename"),
+                            (fields.has("photo"))?fields.getJSONObject("photo").getString("filename"):"pic",
                             fields.getString("coordonnees_geographiques")
                     );
 
