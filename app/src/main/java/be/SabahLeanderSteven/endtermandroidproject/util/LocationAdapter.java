@@ -64,7 +64,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
         if (items.size() > 0 && position < items.size()) {
             Location currentLocation = items.get(position);
-            if (!currentLocation.getPhoto().equals("Unknown")) {
+            if (!currentLocation.getPhoto().isEmpty()) {
                 String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
                         + currentLocation.getPhoto()
                         + "/download";
