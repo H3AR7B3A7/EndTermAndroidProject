@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -20,17 +21,20 @@ import java.util.List;
 import be.SabahLeanderSteven.endtermandroidproject.R;
 import be.SabahLeanderSteven.endtermandroidproject.model.Location;
 
-public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> implements Filterable {
+public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> implements Filterable{
 
     class LocationViewHolder extends RecyclerView.ViewHolder {
         // Fields
         final ImageView photoIV;
+        final TextView charactersTV, authorTV;
 
         // Constructor
         LocationViewHolder(@NonNull View itemView) {
             super(itemView);
             // Constructor params
             this.photoIV = itemView.findViewById(R.id.card_iv);
+            this.charactersTV = itemView.findViewById(R.id.card_characters_tv);
+            this.authorTV = itemView.findViewById(R.id.card_authors_tv);
         }
     }
 
@@ -64,7 +68,14 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
         if (items.size() > 0 && position < items.size()) {
             Location currentLocation = items.get(position);
-            if (!currentLocation.getPhoto().equals("Unknown")) {
+            // TODO : Search the null object reference ^^
+            if (!currentLocation.getCharacters().equals("Unspecified")) {
+                holder.charactersTV.setText(currentLocation.getCharacters());
+            }
+
+            holder.authorTV.setText(currentLocation.getAuthors());
+
+            if (!currentLocation.getPhoto().equals("Unspecified")) {
                 String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
                         + currentLocation.getPhoto()
                         + "/download";
