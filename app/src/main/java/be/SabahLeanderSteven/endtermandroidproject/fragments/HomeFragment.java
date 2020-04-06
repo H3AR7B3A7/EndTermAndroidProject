@@ -91,12 +91,15 @@ public class HomeFragment extends Fragment {
      */
     private void showPopup(){
         aboutPopup.setContentView(R.layout.about_popup);
-        // TODO : Setup popup content here ...
+        // TODO : Setup popup content, like buttons, here ...
 
         aboutPopup.show();
     }
 
-    // TODO : Add db Async task here somewhere to start DL in background
+    /**
+     * Async tasks to start DL in background ...
+     */
+    // TODO : Check if data is already present first
     private void fetchComicBookLocations() {
         threadExecutor.execute(() -> {
             Log.e("DATA", "Start fetching");
@@ -109,8 +112,6 @@ public class HomeFragment extends Fragment {
                 Response response = client.newCall(request).execute();
                 JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                 JSONArray jsonArray = jsonObject.getJSONArray("records");
-
-                //TODO : Look into the following ...
 
                 ArrayList<Location> locations = new ArrayList<>();
                 for (int i = 0; i < jsonArray.length(); i++) {
