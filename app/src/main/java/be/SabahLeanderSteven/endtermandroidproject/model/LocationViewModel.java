@@ -1,6 +1,7 @@
 package be.SabahLeanderSteven.endtermandroidproject.model;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -23,30 +24,22 @@ import okhttp3.Response;
 public class LocationViewModel extends AndroidViewModel {
 
     private LocationRepository mRepository;
-    private LiveData<ArrayList<Location>> mAllLocations;
     private ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
     public LocationViewModel(Application application) {
         super(application);
         mRepository = new LocationRepository(application);
-        mAllLocations = mRepository.getAllLocations();
-
+        fetchComicBookLocations();
     }
 
-    public LiveData<ArrayList<Location>> getAllLocations() {
+    public LiveData<List<Location>> getAllLocations() {
         // Check if not already present before fetching??
-        fetchComicBookLocations();
-
-        return mAllLocations;
+        return mRepository.getAllLocations();
     }
 
 
     private void insertLocation(Location location) {
         mRepository.insert(location);
-    }
-
-    public List<Location> getAllLocationsFromDB() {
-        return LocationRoomDB.getDatabase(getApplication()).locationDAO().getAllLocations();
     }
 
     public Location findLocationById(String id) {
@@ -60,10 +53,10 @@ public class LocationViewModel extends AndroidViewModel {
 
     private void fetchComicBookLocations() {
         threadExecutor.execute(() -> {
-
+            Log.e("DATA", "Start fetching");
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("https://bruxellesdata.opendatasoft.com/api/records/1.0/search/?dataset=comic-book-route")
+                    .url("https://bruxellesdata.opendatasoft.com/api/records/1.0/search/?dataset=comic-book-route&rows=58")
                     .get().build();
 
             try {
@@ -79,7 +72,7 @@ public class LocationViewModel extends AndroidViewModel {
 
                     final Location currentLocation = new Location(
                             Integer.parseInt(fields.getString("annee")),
-                            fields.getString("personnage_s"),
+                            (fields.has("personnage_s"))?fields.getString("personnage_s"):"Unspecified", //controle of iets ingevuld
                             fields.getString("auteur_s"),
                             fields.getJSONObject("photo").getString("filename"),
                             fields.getString("coordonnees_geographiques")

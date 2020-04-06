@@ -11,17 +11,15 @@ import java.util.List;
 public class LocationRepository {
 
     private LocationDAO mLocationDao;
-    private LiveData<ArrayList<Location>> mAllLocations;
 
     LocationRepository(Application application){
         LocationRoomDB db = LocationRoomDB.getDatabase(application);
         mLocationDao = db.locationDAO();
         //TODO: WTF is da me die live data en (array)lists???  Ik blijf mar heen en weer gaan tussen de twee, ik weet het ook ni.
-        mAllLocations = (LiveData<ArrayList<Location>>) mLocationDao.getAllLocations();
     }
 
-    LiveData<ArrayList<Location>> getAllLocations(){
-        return mAllLocations;
+    LiveData<List<Location>> getAllLocations(){
+        return mLocationDao.getAllLocations();
     }
 
     public void insert(Location location){

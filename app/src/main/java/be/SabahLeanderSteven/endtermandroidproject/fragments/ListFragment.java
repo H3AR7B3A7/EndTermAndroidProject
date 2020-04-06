@@ -1,10 +1,13 @@
 package be.SabahLeanderSteven.endtermandroidproject.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import be.SabahLeanderSteven.endtermandroidproject.R;
 import be.SabahLeanderSteven.endtermandroidproject.model.Location;
@@ -25,6 +29,7 @@ public class ListFragment extends Fragment {
 
     private static final String SUBJECT = "argSubject";
     private String subject; // Use this as id for sidebar selection
+    private AppCompatActivity mContext;
 
     private LocationAdapter adapter;
 
@@ -45,6 +50,12 @@ public class ListFragment extends Fragment {
         return listFragment;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.mContext = (AppCompatActivity) context;
+    }
+
     /**
      * ON CREATE VIEW METHOD
      * @param inflater:           LayoutInflater for fragment_list
@@ -52,6 +63,9 @@ public class ListFragment extends Fragment {
      * @param savedInstanceState: Bundle to pass saved instance state
      * @return Inflation of List Fragment
      */
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,10 +82,11 @@ public class ListFragment extends Fragment {
         adapter = new LocationAdapter(getActivity());
         locationRV.setAdapter(adapter);
 
-        LocationViewModel model = new ViewModelProvider(this).get(LocationViewModel.class);
-        model.getAllLocations().observe(getViewLifecycleOwner(), new Observer<ArrayList<Location>>() {
+        //quick fix by david
+        LocationViewModel model = new ViewModelProvider(mContext).get(LocationViewModel.class);
+        model.getAllLocations().observe(getViewLifecycleOwner(), new Observer<List<Location>>() {
             @Override
-            public void onChanged(ArrayList<Location> locations) {
+            public void onChanged(List<Location> locations) {
                 adapter.addLocations(locations);
                 adapter.notifyDataSetChanged();
             }

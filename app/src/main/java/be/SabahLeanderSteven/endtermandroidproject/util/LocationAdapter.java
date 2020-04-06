@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import be.SabahLeanderSteven.endtermandroidproject.R;
 import be.SabahLeanderSteven.endtermandroidproject.model.Location;
@@ -42,10 +43,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     }
 
     // ADD LOCATIONS TO RV
-    public void addLocations(ArrayList<Location> locations) {
+    public void addLocations(List<Location> locations) {
         items.clear();
         items.addAll(locations);
-        OGitems = locations;
+        OGitems = items;
     }
 
     // LIFECYCLE
