@@ -33,7 +33,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    String currentDataSelected = "COMICS";
+    private String currentDataSelected = "COMICS";
 
     private Boolean comicsInDB;
     private Boolean sculpturesInDB;
@@ -52,9 +52,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // LOAD Data States
         loadComicsDataState();
         loadSculpturesDataState();
 
+        // Fetch Data if not present
         fetchComicBookLocations();
 
         // UI Components
@@ -88,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.comics_pressed:
                     currentDataSelected = "COMICS";
                     newHomeFragment = HomeFragment.newInstance(currentDataSelected);
-                    // TODO : Pass currentDataSelected as argument of newInstance in SIDEBAR NAVIGATION for data selection in map and list
                     break;
                 case R.id.sculptures_pressed:
                     currentDataSelected = "SCULPTURES";
@@ -177,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * SAVE DATA STATES for COMICS and SCULPTURES
+     */
     public void saveComicsDataState(){
         comicsInDB = true;
 
@@ -197,6 +201,9 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     * LOAD DATA STATES for COMICS and SCULPTURES
+     */
     public void loadComicsDataState(){
         SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
         comicsInDB = sharedPreferences.getBoolean(COMICS, false);
