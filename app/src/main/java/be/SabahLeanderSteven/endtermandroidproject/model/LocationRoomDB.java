@@ -50,7 +50,7 @@ public abstract class LocationRoomDB extends RoomDatabase {
 
 
         private final LocationDAO mDao;
-        Location test = new Location(2020, "Testies", "Testers", "test.jpg", "00, 00");
+        Location test = new Location(2020, "Testies", "Testers", "test.jpg", "00, 00","COMICS");
         Location[] locations = {test};
 
         PopulateDbAsync(LocationRoomDB db) {
@@ -70,7 +70,8 @@ public abstract class LocationRoomDB extends RoomDatabase {
                         locations[i].getCharacters(),
                         locations[i].getAuthors(),
                         locations[i].getPhoto(),
-                        locations[i].getCoordinates());
+                        locations[i].getCoordinates(),
+                        locations[i].getType());
                 mDao.insert(location);
             }
             return null;

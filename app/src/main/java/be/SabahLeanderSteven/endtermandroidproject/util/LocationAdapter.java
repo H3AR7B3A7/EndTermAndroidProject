@@ -75,11 +75,19 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
 
             holder.authorTV.setText(currentLocation.getAuthors());
 
-            if (!currentLocation.getPhoto().equals("Unspecified")) {
-                String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
-                        + currentLocation.getPhoto()
-                        + "/download";
-                Picasso.get().load(path).into(holder.photoIV);
+            switch (currentLocation.getType()) {
+                case "COMICS":
+                if (!currentLocation.getPhoto().equals("Unspecified")) {
+                    String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
+                            + currentLocation.getPhoto()
+                            + "/download";
+                    Picasso.get().load(path).into(holder.photoIV);
+                } break;
+                case "GRAFFITI":
+                if (!currentLocation.getPhoto().equals("Unspecified")){
+                    String path = "https://opendata.brussel.be/explore/dataset/street-art/files/"+currentLocation.getPhoto()+"/download";
+                    Picasso.get().load(path).into(holder.photoIV);
+                }
             }
         }
     }

@@ -36,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
     private String currentDataSelected = "COMICS";
 
     private Boolean comicsInDB;
-    private Boolean sculpturesInDB;
+    private Boolean graffitiInDB;
 
     private static final String DATA_STATE = "dataState";
     private static final String COMICS = "comics";
-    private static final String SCULPTURES = "sculptures";
+    private static final String GRAFFITI = "graffiti";
 
     private ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
         // LOAD Data States
         loadComicsDataState();
-        loadSculpturesDataState();
+        loadGraffitiDataState();
 
         // Fetch Data if not present
-        fetchComicBookLocations();
+        fetchComicsLocations(); // Fetching GRAFFITI only on sidebar navigation
 
         // UI Components
         // NAVIGATION Component
@@ -91,9 +91,10 @@ public class MainActivity extends AppCompatActivity {
                     currentDataSelected = "COMICS";
                     newHomeFragment = HomeFragment.newInstance(currentDataSelected);
                     break;
-                case R.id.sculptures_pressed:
-                    currentDataSelected = "SCULPTURES";
+                case R.id.graffiti_pressed:
+                    currentDataSelected = "GRAFFITI";
                     newHomeFragment = HomeFragment.newInstance(currentDataSelected);
+                    fetchGraffitiLocations();
                     break;
             }
             assert newHomeFragment != null;
@@ -136,12 +137,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Async tasks to start DL in background ...
      */
-    // TODO : Check if data is already present first
-    private void fetchComicBookLocations() {
+    private void fetchComicsLocations() {
         SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
         if (!sharedPreferences.contains(COMICS)) {
             threadExecutor.execute(() -> {
-                Log.e("DATA", "Start fetching");
+                Log.e("DATA", "Start fetching COMICS");
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
                         .url("https://bruxellesdata.opendatasoft.com/api/records/1.0/search/?dataset=comic-book-route&rows=58")
@@ -158,14 +158,15 @@ public class MainActivity extends AppCompatActivity {
 
                         final Location currentLocation = new Location(
                                 Integer.parseInt(fields.getString("annee")),
-                                (fields.has("personnage_s")) ? fields.getString("personnage_s") : "Unspecified", //controle of iets ingevuld
+                                (fields.has("personnage_s")) ? fields.getString("personnage_s") : "Unspecified",
                                 fields.getString("auteur_s"),
                                 (fields.has("photo")) ? fields.getJSONObject("photo").getString("id") : "Unspecified",
-                                fields.getString("coordonnees_geographiques")
+                                fields.getString("coordonnees_geographiques"),
+                                "COMICS"
                         );
 
                         locations.add(currentLocation);
-                        LocationRoomDB.getDatabase(Objects.requireNonNull(this).getApplication()).locationDAO().insert(currentLocation);
+                        LocationRoomDB.getDatabase(getApplication()).locationDAO().insert(currentLocation);
 
                         saveComicsDataState();
                     }
@@ -178,8 +179,48 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void fetchGraffitiLocations(){
+        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
+        if (!sharedPreferences.contains(GRAFFITI)){
+            threadExecutor.execute(()->{
+                Log.e("DATA", "Start fetching GRAFFITI");
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .url("https://opendata.brussel.be/api/records/1.0/search/?dataset=street-art&rows=23")
+                        .get()
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
+                    JSONArray jsonArray = jsonObject.getJSONArray("records");
+
+                    ArrayList<Location> locations = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject fields = jsonArray.getJSONObject(i).getJSONObject("fields");
+
+                        final Location currentLocation = new Location(
+                            (fields.has("annee")) ? Integer.parseInt(fields.getString("annee")) : 9999,
+                            (fields.has("name_of_the_work")) ? fields.getString("name_of_the_work") : "Unspecified",
+                            (fields.has("naam_van_de_kunstenaar")) ? fields.getString("naam_van_de_kunstenaar") : "Unspecified",
+                            (fields.has("photo")) ? fields.getJSONObject("photo").getString("id") : "Unspecified",
+                            (fields.has("geocoordinates")) ? fields.getString("geocoordinates"): "Unspecified",
+                            "GRAFFITI"
+                        );
+                        locations.add(currentLocation);
+                        LocationRoomDB.getDatabase(getApplication()).locationDAO().insert(currentLocation);
+
+                        saveGraffitiDataState();
+                    }
+
+                } catch (IOException | JSONException exception) {
+                    exception.printStackTrace();
+                }
+            });
+        }
+    }
+
     /**
-     * SAVE DATA STATES for COMICS and SCULPTURES
+     * SAVE DATA STATES for COMICS and GRAFFITI
      */
     public void saveComicsDataState(){
         comicsInDB = true;
@@ -191,26 +232,26 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void saveSculpturesDataState(){
-        sculpturesInDB = true;
+    public void saveGraffitiDataState(){
+        graffitiInDB = true;
 
         SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putBoolean(SCULPTURES, sculpturesInDB);
+        editor.putBoolean(GRAFFITI, graffitiInDB);
         editor.apply();
     }
 
     /**
-     * LOAD DATA STATES for COMICS and SCULPTURES
+     * LOAD DATA STATES for COMICS and GRAFFITI
      */
     public void loadComicsDataState(){
         SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
         comicsInDB = sharedPreferences.getBoolean(COMICS, false);
     }
 
-    public void loadSculpturesDataState(){
+    public void loadGraffitiDataState(){
         SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
-        sculpturesInDB = sharedPreferences.getBoolean(SCULPTURES, false);
+        graffitiInDB = sharedPreferences.getBoolean(GRAFFITI, false);
     }
 }
