@@ -27,6 +27,7 @@ import be.SabahLeanderSteven.endtermandroidproject.fragments.ListFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
 import be.SabahLeanderSteven.endtermandroidproject.model.Location;
 import be.SabahLeanderSteven.endtermandroidproject.model.LocationRoomDB;
+import be.SabahLeanderSteven.endtermandroidproject.model.LocationViewModel;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -166,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
                         );
 
                         locations.add(currentLocation);
-                        LocationRoomDB.getDatabase(getApplication()).locationDAO().insert(currentLocation);
+                        LocationViewModel locationViewModel = new LocationViewModel(getApplication());
+                        locationViewModel.insertLocation(currentLocation);
 
                         saveComicsDataState();
                     }
@@ -207,7 +209,8 @@ public class MainActivity extends AppCompatActivity {
                             "GRAFFITI"
                         );
                         locations.add(currentLocation);
-                        LocationRoomDB.getDatabase(getApplication()).locationDAO().insert(currentLocation);
+                        LocationViewModel locationViewModel = new LocationViewModel(getApplication());
+                        locationViewModel.insertLocation(currentLocation);
 
                         saveGraffitiDataState();
                     }

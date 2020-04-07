@@ -22,7 +22,7 @@ public class LocationViewModel extends AndroidViewModel {
     }
 
 
-    private void insertLocation(Location location) {
+    public void insertLocation(Location location) {
         mRepository.insert(location);
     }
 
