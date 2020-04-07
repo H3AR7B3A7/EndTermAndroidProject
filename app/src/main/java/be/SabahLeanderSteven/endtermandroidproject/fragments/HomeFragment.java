@@ -2,32 +2,17 @@ package be.SabahLeanderSteven.endtermandroidproject.fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import androidx.fragment.app.Fragment;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import be.SabahLeanderSteven.endtermandroidproject.R;
-import be.SabahLeanderSteven.endtermandroidproject.model.Location;
-import be.SabahLeanderSteven.endtermandroidproject.model.LocationRoomDB;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +21,6 @@ public class HomeFragment extends Fragment {
 
     private static final String SUBJECT = "argSubject";
     private String subject;
-    private ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
     private Dialog aboutPopup;
 
@@ -81,8 +65,6 @@ public class HomeFragment extends Fragment {
 
         wtfButton.setOnClickListener(v -> showPopup());
 
-        fetchComicBookLocations();
-
         return rootView;
     }
 
@@ -94,46 +76,6 @@ public class HomeFragment extends Fragment {
         // TODO : Setup popup content, like buttons, here ...
 
         aboutPopup.show();
-    }
-
-    /**
-     * Async tasks to start DL in background ...
-     */
-    // TODO : Check if data is already present first
-    private void fetchComicBookLocations() {
-        threadExecutor.execute(() -> {
-            Log.e("DATA", "Start fetching");
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url("https://bruxellesdata.opendatasoft.com/api/records/1.0/search/?dataset=comic-book-route&rows=58")
-                    .get().build();
-
-            try {
-                Response response = client.newCall(request).execute();
-                JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
-                JSONArray jsonArray = jsonObject.getJSONArray("records");
-
-                ArrayList<Location> locations = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject fields = jsonArray.getJSONObject(i).getJSONObject("fields");
-
-                    final Location currentLocation = new Location(
-                            Integer.parseInt(fields.getString("annee")),
-                            (fields.has("personnage_s"))?fields.getString("personnage_s"):"Unspecified", //controle of iets ingevuld
-                            fields.getString("auteur_s"),
-                            (fields.has("photo"))?fields.getJSONObject("photo").getString("id"):"Unspecified",
-                            fields.getString("coordonnees_geographiques")
-                    );
-
-                    locations.add(currentLocation);
-                    LocationRoomDB.getDatabase(Objects.requireNonNull(getActivity()).getApplication()).locationDAO().insert(currentLocation);
-                }
-
-
-            } catch (IOException | JSONException exception) {
-                exception.printStackTrace();
-            }
-        });
     }
 
 }
