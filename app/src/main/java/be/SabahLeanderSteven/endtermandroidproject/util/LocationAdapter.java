@@ -68,18 +68,26 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
         if (items.size() > 0 && position < items.size()) {
             Location currentLocation = items.get(position);
-            // TODO : Search the null object reference ^^
+
             if (!currentLocation.getCharacters().equals("Unspecified")) {
                 holder.charactersTV.setText(currentLocation.getCharacters());
             }
 
             holder.authorTV.setText(currentLocation.getAuthors());
 
-            if (!currentLocation.getPhoto().equals("Unspecified")) {
-                String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
-                        + currentLocation.getPhoto()
-                        + "/download";
-                Picasso.get().load(path).into(holder.photoIV);
+            switch (currentLocation.getType()) {
+                case "COMICS":
+                if (!currentLocation.getPhoto().equals("Unspecified")) {
+                    String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
+                            + currentLocation.getPhoto()
+                            + "/download";
+                    Picasso.get().load(path).into(holder.photoIV);
+                } break;
+                case "GRAFFITI":
+                if (!currentLocation.getPhoto().equals("Unspecified")){
+                    String path = "https://opendata.brussel.be/explore/dataset/street-art/files/"+currentLocation.getPhoto()+"/download";
+                    Picasso.get().load(path).into(holder.photoIV);
+                }
             }
         }
     }

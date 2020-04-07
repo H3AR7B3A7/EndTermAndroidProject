@@ -10,14 +10,15 @@ public class Location {
     private int id;
 
     private int year;
-    private String characters, authors, photo, coordinates;
+    private String characters, authors, photo, coordinates, type;
 
-    public Location(int year, String characters, String authors, String photo, String coordinates) {
+    public Location(int year, String characters, String authors, String photo, String coordinates, String type) {
         this.year = year;
         this.characters = characters;
         this.authors = authors;
         this.photo = photo;
         this.coordinates = coordinates;
+        this.type = type;
     }
 
     public int getId() {
@@ -36,9 +37,7 @@ public class Location {
         this.year = year;
     }
 
-    public String getCharacters() {
-        return characters;
-    }
+    public String getCharacters() { return characters; }
 
     public void setCharacters(String characters) { this.characters = characters; }
 
@@ -65,4 +64,8 @@ public class Location {
     public void setCoordinates(String coordinates) {
         this.coordinates = coordinates;
     }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
 }
