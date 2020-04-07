@@ -20,6 +20,8 @@ class LocationRepository {
         return mLocationDao.getAllLocations();
     }
 
+    LiveData<List<Location>> getAllLocationsOfType(String type) { return mLocationDao.getAllLocationsOfType(type); }
+
     void insert(Location location){
         new insertAsyncTask(mLocationDao).execute(location);
     }

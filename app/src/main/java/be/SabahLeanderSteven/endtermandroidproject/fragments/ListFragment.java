@@ -84,7 +84,7 @@ public class ListFragment extends Fragment {
 
         //quick fix by david
         LocationViewModel model = new ViewModelProvider(mContext).get(LocationViewModel.class);
-        model.getAllLocations().observe(getViewLifecycleOwner(), new Observer<List<Location>>() {
+        model.getAllLocationsOfType(sideBarItemID).observe(getViewLifecycleOwner(), new Observer<List<Location>>() {
             @Override
             public void onChanged(List<Location> locations) {
                 adapter.addLocations(locations);
