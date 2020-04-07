@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class LocationRepository {
+class LocationRepository {
 
     private LocationDAO mLocationDao;
 
@@ -20,7 +20,7 @@ public class LocationRepository {
         return mLocationDao.getAllLocations();
     }
 
-    public void insert(Location location){
+    void insert(Location location){
         new insertAsyncTask(mLocationDao).execute(location);
     }
 
