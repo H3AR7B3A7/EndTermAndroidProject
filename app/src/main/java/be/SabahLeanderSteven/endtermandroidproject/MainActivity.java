@@ -25,24 +25,10 @@ import java.util.concurrent.Executors;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.HomeFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.ListFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
-import be.SabahLeanderSteven.endtermandroidproject.model.Location;
-import be.SabahLeanderSteven.endtermandroidproject.model.LocationRoomDB;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String currentDataSelected = "COMICS";
-
-    private Boolean comicsInDB;
-    private Boolean graffitiInDB;
-
-    private static final String DATA_STATE = "dataState";
-    private static final String COMICS = "comics";
-    private static final String GRAFFITI = "graffiti";
-
-    private ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
+    String currentDataSelected = "COMICS";
 
     /**
      * ON CREATE METHOD
@@ -51,13 +37,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // LOAD Data States
-        loadComicsDataState();
-        loadGraffitiDataState();
-
-        // Fetch Data if not present
-        fetchComicsLocations(); // Fetching GRAFFITI only on sidebar navigation
 
         // UI Components
         // NAVIGATION Component
@@ -90,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.comics_pressed:
                     currentDataSelected = "COMICS";
                     newHomeFragment = HomeFragment.newInstance(currentDataSelected);
+                    // TODO : Pass currentDataSelected as argument of newInstance in SIDEBAR NAVIGATION for data selection in map and list
                     break;
-                case R.id.graffiti_pressed:
-                    currentDataSelected = "GRAFFITI";
+                case R.id.sculptures_pressed:
+                    currentDataSelected = "SCULPTURES";
                     newHomeFragment = HomeFragment.newInstance(currentDataSelected);
-                    fetchGraffitiLocations();
                     break;
             }
             assert newHomeFragment != null;
@@ -133,125 +112,4 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
-    /**
-     * Async tasks to start DL in background ...
-     */
-    private void fetchComicsLocations() {
-        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
-        if (!sharedPreferences.contains(COMICS)) {
-            threadExecutor.execute(() -> {
-                Log.e("DATA", "Start fetching COMICS");
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .url("https://bruxellesdata.opendatasoft.com/api/records/1.0/search/?dataset=comic-book-route&rows=58")
-                        .get().build();
-
-                try {
-                    Response response = client.newCall(request).execute();
-                    JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
-                    JSONArray jsonArray = jsonObject.getJSONArray("records");
-
-                    ArrayList<Location> locations = new ArrayList<>();
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject fields = jsonArray.getJSONObject(i).getJSONObject("fields");
-
-                        final Location currentLocation = new Location(
-                                Integer.parseInt(fields.getString("annee")),
-                                (fields.has("personnage_s")) ? fields.getString("personnage_s") : "Unspecified",
-                                fields.getString("auteur_s"),
-                                (fields.has("photo")) ? fields.getJSONObject("photo").getString("id") : "Unspecified",
-                                fields.getString("coordonnees_geographiques"),
-                                "COMICS"
-                        );
-
-                        locations.add(currentLocation);
-                        LocationRoomDB.getDatabase(getApplication()).locationDAO().insert(currentLocation);
-
-                        saveComicsDataState();
-                    }
-
-
-                } catch (IOException | JSONException exception) {
-                    exception.printStackTrace();
-                }
-            });
-        }
-    }
-
-    private void fetchGraffitiLocations(){
-        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
-        if (!sharedPreferences.contains(GRAFFITI)){
-            threadExecutor.execute(()->{
-                Log.e("DATA", "Start fetching GRAFFITI");
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .url("https://opendata.brussel.be/api/records/1.0/search/?dataset=street-art&rows=23")
-                        .get()
-                        .build();
-                try {
-                    Response response = client.newCall(request).execute();
-                    JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
-                    JSONArray jsonArray = jsonObject.getJSONArray("records");
-
-                    ArrayList<Location> locations = new ArrayList<>();
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject fields = jsonArray.getJSONObject(i).getJSONObject("fields");
-
-                        final Location currentLocation = new Location(
-                            (fields.has("annee")) ? Integer.parseInt(fields.getString("annee")) : 9999,
-                            (fields.has("name_of_the_work")) ? fields.getString("name_of_the_work") : "Unspecified",
-                            (fields.has("naam_van_de_kunstenaar")) ? fields.getString("naam_van_de_kunstenaar") : "Unspecified",
-                            (fields.has("photo")) ? fields.getJSONObject("photo").getString("id") : "Unspecified",
-                            (fields.has("geocoordinates")) ? fields.getString("geocoordinates"): "Unspecified",
-                            "GRAFFITI"
-                        );
-                        locations.add(currentLocation);
-                        LocationRoomDB.getDatabase(getApplication()).locationDAO().insert(currentLocation);
-
-                        saveGraffitiDataState();
-                    }
-
-                } catch (IOException | JSONException exception) {
-                    exception.printStackTrace();
-                }
-            });
-        }
-    }
-
-    /**
-     * SAVE DATA STATES for COMICS and GRAFFITI
-     */
-    public void saveComicsDataState(){
-        comicsInDB = true;
-
-        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE,MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putBoolean(COMICS, comicsInDB);
-        editor.apply();
-    }
-
-    public void saveGraffitiDataState(){
-        graffitiInDB = true;
-
-        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE,MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putBoolean(GRAFFITI, graffitiInDB);
-        editor.apply();
-    }
-
-    /**
-     * LOAD DATA STATES for COMICS and GRAFFITI
-     */
-    public void loadComicsDataState(){
-        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
-        comicsInDB = sharedPreferences.getBoolean(COMICS, false);
-    }
-
-    public void loadGraffitiDataState(){
-        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
-        graffitiInDB = sharedPreferences.getBoolean(GRAFFITI, false);
-    }
 }

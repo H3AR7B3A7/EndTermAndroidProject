@@ -23,8 +23,9 @@ public class DetailsFragment extends Fragment {
     /**
      * FACTORY METHOD
      * @return new Instance of ListFragment
+     * @param currentDataSelected
      */
-    public static DetailsFragment newInstance(){ return new DetailsFragment();}
+    public static DetailsFragment newInstance(String currentDataSelected){ return new DetailsFragment();}
 
     /**
      * ON CREATE VIEW METHOD
