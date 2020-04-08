@@ -17,12 +17,14 @@ public class LocationViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Location>> getAllLocations() {
-        // Check if not already present before fetching??
         return mRepository.getAllLocations();
     }
 
+    public LiveData<List<Location>> getAllLocationsOfType(String type) {
+        return mRepository.getAllLocationsOfType(type);
+    }
 
-    private void insertLocation(Location location) {
+    public void insertLocation(Location location) {
         mRepository.insert(location);
     }
 

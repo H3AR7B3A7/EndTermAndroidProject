@@ -24,4 +24,7 @@ public interface LocationDAO {
     @Query("SELECT * FROM locations WHERE id LIKE :id")
     Location findLocationById(String id);
 
+    @Query("SELECT * FROM locations WHERE type LIKE :type")
+    LiveData<List<Location>> getAllLocationsOfType(String type);
+
 }

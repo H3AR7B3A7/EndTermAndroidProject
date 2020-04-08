@@ -5,10 +5,9 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class LocationRepository {
+class LocationRepository {
 
     private LocationDAO mLocationDao;
 
@@ -21,7 +20,9 @@ public class LocationRepository {
         return mLocationDao.getAllLocations();
     }
 
-    public void insert(Location location){
+    LiveData<List<Location>> getAllLocationsOfType(String type) { return mLocationDao.getAllLocationsOfType(type); }
+
+    void insert(Location location){
         new insertAsyncTask(mLocationDao).execute(location);
     }
 
