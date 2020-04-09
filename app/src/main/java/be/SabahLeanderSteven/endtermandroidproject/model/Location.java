@@ -10,15 +10,17 @@ public class Location {
     private int id;
 
     private int year;
-    private String characters, authors, photo, coordinates, type;
+    private String characters, authors, photo, type;
+    private double geoLat, geolong;
 
-    public Location(int year, String characters, String authors, String photo, String coordinates, String type) {
+    public Location( int year, String characters, String authors, String photo, String type, double geoLat, double geolong) {
         this.year = year;
         this.characters = characters;
         this.authors = authors;
         this.photo = photo;
-        this.coordinates = coordinates;
         this.type = type;
+        this.geoLat = geoLat;
+        this.geolong = geolong;
     }
 
     public int getId() {
@@ -37,9 +39,13 @@ public class Location {
         this.year = year;
     }
 
-    public String getCharacters() { return characters; }
+    public String getCharacters() {
+        return characters;
+    }
 
-    public void setCharacters(String characters) { this.characters = characters; }
+    public void setCharacters(String characters) {
+        this.characters = characters;
+    }
 
     public String getAuthors() {
         return authors;
@@ -57,15 +63,27 @@ public class Location {
         this.photo = photo;
     }
 
-    public String getCoordinates() {
-        return coordinates;
+    public String getType() {
+        return type;
     }
 
-    public void setCoordinates(String coordinates) {
-        this.coordinates = coordinates;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getType() { return type; }
+    public double getGeoLat() {
+        return geoLat;
+    }
 
-    public void setType(String type) { this.type = type; }
+    public void setGeoLat(double geoLat) {
+        this.geoLat = geoLat;
+    }
+
+    public double getGeolong() {
+        return geolong;
+    }
+
+    public void setGeolong(double geolong) {
+        this.geolong = geolong;
+    }
 }

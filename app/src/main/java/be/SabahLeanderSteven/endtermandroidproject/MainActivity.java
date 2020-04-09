@@ -25,6 +25,7 @@ import java.util.concurrent.Executors;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.HomeFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.ListFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
+import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment2;
 import be.SabahLeanderSteven.endtermandroidproject.model.Location;
 import be.SabahLeanderSteven.endtermandroidproject.model.LocationRoomDB;
 import be.SabahLeanderSteven.endtermandroidproject.model.LocationViewModel;
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = HomeFragment.newInstance(currentDataSelected);
                     break;
                 case R.id.nav_map:
-                    selectedFragment = MapFragment.newInstance(currentDataSelected);
+                    selectedFragment = MapFragment2.newInstance();
                     break;
                 case R.id.nav_list:
                     selectedFragment = ListFragment.newInstance(currentDataSelected);
@@ -162,8 +163,9 @@ public class MainActivity extends AppCompatActivity {
                                 (fields.has("personnage_s")) ? fields.getString("personnage_s") : "Unspecified",
                                 fields.getString("auteur_s"),
                                 (fields.has("photo")) ? fields.getJSONObject("photo").getString("id") : "Unspecified",
-                                fields.getString("coordonnees_geographiques"),
-                                "COMICS"
+                                "COMICS",
+                                fields.getJSONArray("coordonnees_geographiques").getDouble(0),
+                                fields.getJSONArray("coordonnees_geographiques").getDouble(1)
                         );
 
                         locations.add(currentLocation);
@@ -205,8 +207,9 @@ public class MainActivity extends AppCompatActivity {
                             (fields.has("name_of_the_work")) ? fields.getString("name_of_the_work") : "Unspecified",
                             (fields.has("naam_van_de_kunstenaar")) ? fields.getString("naam_van_de_kunstenaar") : "Unspecified",
                             (fields.has("photo")) ? fields.getJSONObject("photo").getString("id") : "Unspecified",
-                            (fields.has("geocoordinates")) ? fields.getString("geocoordinates"): "Unspecified",
-                            "GRAFFITI"
+                            "GRAFFITI",
+                                fields.getJSONArray("coordonnees_geographiques").getDouble(0),
+                                fields.getJSONArray("coordonnees_geographiques").getDouble(1)
                         );
                         locations.add(currentLocation);
                         LocationViewModel locationViewModel = new LocationViewModel(getApplication());

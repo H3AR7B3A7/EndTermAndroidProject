@@ -36,16 +36,17 @@ public abstract class LocationRoomDB extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-            new PopulateDbAsync(INSTANCE).execute();
+            //new PopulateDbAsync(INSTANCE).execute();
         }
     };
 
 
     // TODO : Figure out whether we need populating inner class (factory data)
 
+    /*
     /**
      * Inner class to populate db in background (with test Location-Object)
-     */
+
     static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
 
@@ -76,5 +77,5 @@ public abstract class LocationRoomDB extends RoomDatabase {
             }
             return null;
         }
-    }
+    }*/
 }

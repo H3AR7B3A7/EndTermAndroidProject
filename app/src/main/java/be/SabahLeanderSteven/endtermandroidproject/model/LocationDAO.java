@@ -18,6 +18,7 @@ public interface LocationDAO {
 
     //vermijd het zelf aanspreken van getters etc., sowieso al geobserveerd
     //livedata werkt enkel met List, niet met ArrayList
+    //wordt geen list,
     @Query("SELECT * from locations")
     LiveData<List<Location>> getAllLocations();
 
