@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = ListFragment.newInstance(currentDataSelected);
                     break;
                 case R.id.nav_info:
+                    selectedFragment = HomeFragment.newInstance(currentDataSelected);
                     break;
             }
 
