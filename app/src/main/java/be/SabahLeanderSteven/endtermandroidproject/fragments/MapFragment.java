@@ -34,6 +34,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String SUBJECT = "argSubject";
     private String subject; // Use this as id for sidebar selection
+
     private MapView mapView;
     private GoogleMap myMap;
     private AppCompatActivity mContext;
@@ -66,11 +67,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                              ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
-
-        if (getArguments() != null){
-            subject = getArguments().getString(SUBJECT);
-        }
-        String sideBarItemID = subject;
 
         mapView = rootView.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -131,12 +127,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void drawMarkers() {
+        // get argument from instance created to pass to getAllLocationsOfType
+        if (getArguments() != null){
+            subject = getArguments().getString(SUBJECT);
+        }
         //methode om pinnekes op u kaart te krijgen.
         //for loop over database aanmaken.
 //        Marker m = myMap.addMarker(new MarkerOptions()....).position(new LatLng marker.getgeolat, marker.getgeoLong)
-
         LocationViewModel locationViewModel = new ViewModelProvider(mContext).get(LocationViewModel.class);
-        locationViewModel.getAllLocations().observe(mContext, new Observer<List<Location>>() {
+        locationViewModel.getAllLocationsOfType(subject).observe(mContext, new Observer<List<Location>>() {
             @Override
             public void onChanged(List<Location> locations) {
                 //data is binnengehaald
