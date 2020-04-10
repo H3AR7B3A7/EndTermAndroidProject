@@ -32,19 +32,33 @@ import be.SabahLeanderSteven.endtermandroidproject.model.LocationViewModel;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
+    private static final String SUBJECT = "argSubject";
+    private String subject; // Use this as id for sidebar selection
     private MapView mapView;
     private GoogleMap myMap;
     private AppCompatActivity mContext;
     private final LatLng Brussel = new LatLng(50.858712, 4.347446);
 
-    public static MapFragment2 newInstance() {
-        return new MapFragment2();
-    }
+
+    /**
+     * FACTORY METHOD
+     * @return new Instance of MapFragment
+     *
+     */
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mContext = (AppCompatActivity) context;
+
+    }
+    public static MapFragment newInstance(String subject){
+        MapFragment mapFragment = new MapFragment();
+        Bundle args = new Bundle();
+        args.putString(SUBJECT, subject);
+        mapFragment.setArguments(args);
+
+        return mapFragment;
     }
 
     @Override
@@ -53,6 +67,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
+        if (getArguments() != null){
+            subject = getArguments().getString(SUBJECT);
+        }
+        String sideBarItemID = subject;
 
         mapView = rootView.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -83,7 +101,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             });*/
     }
 
-
+    /**
+     * GOOGLE MAP LIFECYCLE
+     */
     @Override
     public void onResume () {
         super.onResume();

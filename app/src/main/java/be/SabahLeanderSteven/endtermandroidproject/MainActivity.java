@@ -123,12 +123,11 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = HomeFragment.newInstance(currentDataSelected);
                     break;
                 case R.id.nav_map:
-                    selectedFragment = MapFragment2.newInstance();
+                    selectedFragment = MapFragment.newInstance(currentDataSelected);
                     break;
                 case R.id.nav_list:
                     selectedFragment = ListFragment.newInstance(currentDataSelected);
                     break;
-
             }
 
             assert selectedFragment != null;
