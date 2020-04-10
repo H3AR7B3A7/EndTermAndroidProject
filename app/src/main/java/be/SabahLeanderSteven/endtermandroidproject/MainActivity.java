@@ -211,8 +211,8 @@ public class MainActivity extends AppCompatActivity {
                             (fields.has("naam_van_de_kunstenaar")) ? fields.getString("naam_van_de_kunstenaar") : "Unspecified",
                             (fields.has("photo")) ? fields.getJSONObject("photo").getString("id") : "Unspecified",
                             "GRAFFITI",
-                                fields.getJSONArray("coordonnees_geographiques").getDouble(0),
-                                fields.getJSONArray("coordonnees_geographiques").getDouble(1)
+                                fields.getJSONArray("geocoordinates").getDouble(0),
+                                fields.getJSONArray("geocoordinates").getDouble(1)
                         );
                         locations.add(currentLocation);
                         LocationViewModel locationViewModel = new LocationViewModel(getApplication());
