@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_list:
                     selectedFragment = ListFragment.newInstance(currentDataSelected);
                     break;
+
             }
 
             assert selectedFragment != null;

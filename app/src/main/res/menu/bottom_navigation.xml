@@ -13,8 +13,9 @@
     <item
         android:id="@+id/nav_list"
         android:icon="@drawable/ic_format_list_bulleted_black_24dp"
-        android:title="@string/list"/>
+        android:title="@string/list" />
     <item
-        android:id="@+id/nav_about"
-        android:title="@string/nav_about" />
+        android:id="@+id/nav_info"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/nav_info" />
 </menu>
