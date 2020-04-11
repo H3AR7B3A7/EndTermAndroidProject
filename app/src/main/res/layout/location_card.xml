@@ -8,9 +8,10 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
+    android:paddingTop="10dp"
     app:cardBackgroundColor="@color/colorPrimaryDark"
     app:cardCornerRadius="5dp"
-    app:cardElevation="2dp"
+    app:cardElevation="5dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
     app:contentPadding="5dp">

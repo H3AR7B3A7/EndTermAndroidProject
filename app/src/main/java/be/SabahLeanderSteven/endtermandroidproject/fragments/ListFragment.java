@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,7 +78,10 @@ public class ListFragment extends Fragment {
         String sideBarItemID = subject;
 
         RecyclerView locationRV = rootView.findViewById(R.id.rv_locations);
-        locationRV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+
+        locationRV.setLayoutManager(gridLayoutManager);
 
         adapter = new LocationAdapter(getActivity());
         locationRV.setAdapter(adapter);
