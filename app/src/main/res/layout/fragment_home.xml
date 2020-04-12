@@ -11,7 +11,7 @@
         android:id="@+id/imageView4"
         android:layout_width="100dp"
         android:layout_height="70dp"
-        android:background="@drawable/rounded_shape"
+        android:background="@drawable/side_burger_shape"
         android:paddingBottom="50dp"
         android:rotation="90"
         android:scaleType="fitXY"
