@@ -130,6 +130,7 @@ public class MapFragment2 extends Fragment implements OnMapReadyCallback {
                                 .title(currentLocation.getCharacters())
                                 );
                         //coordinaat omzetten naar adres:
+
                     }
                 }
             });
