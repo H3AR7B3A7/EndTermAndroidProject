@@ -20,7 +20,7 @@
         tools:listitem="@layout/location_card" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/sideBarIndicator"
         android:layout_width="100dp"
         android:layout_height="70dp"
         android:background="@drawable/side_burger_shape"
