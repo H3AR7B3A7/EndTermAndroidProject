@@ -5,11 +5,11 @@
 
     <item
         android:id="@+id/comics_pressed"
-        android:icon="@android:drawable/gallery_thumb"
+        android:icon="@drawable/ic_location_on_black_24dp"
         android:title="Comics" />
     <item
         android:id="@+id/graffiti_pressed"
-        android:icon="@android:drawable/gallery_thumb"
+        android:icon="@drawable/ic_location_on_black_24dp"
         android:title="Graffiti" />
 
 </menu>
