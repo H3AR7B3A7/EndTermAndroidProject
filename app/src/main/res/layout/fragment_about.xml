@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginLeft="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:layout_marginRight="48dp"
-        android:text="TextView"
+        android:text="@string/str_tv_title_about"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +23,11 @@
 
     <TextView
         android:id="@+id/tv_context_about"
-        android:layout_width="323dp"
+        android:layout_width="0dp"
         android:layout_height="401dp"
         android:layout_marginStart="48dp"
         android:layout_marginLeft="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="48dp"
         android:layout_marginRight="48dp"
         android:text="@string/str_tv_context_about"
@@ -37,11 +37,33 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_title_about" />
 
     <TextView
-        android:id="@+id/textView9"
-        android:layout_width="324dp"
+        android:id="@+id/tv_oproepMuren"
+        android:layout_width="0dp"
         android:layout_height="85dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="572dp" />
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:text="@string/str_tv_oproepMuren"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_oproepMuren" />
+
+    <TextView
+        android:id="@+id/tv_title_oproepMuren"
+        android:layout_width="0dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:text="@string/str_tv_title_oproepMuren"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_context_about" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

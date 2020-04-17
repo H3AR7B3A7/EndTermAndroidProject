@@ -10,12 +10,14 @@
 
     <TextView
         android:id="@+id/tv_agenda"
-        android:layout_width="274dp"
-        android:layout_height="151dp"
+        android:layout_width="336dp"
+        android:layout_height="535dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/tv_agenda"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

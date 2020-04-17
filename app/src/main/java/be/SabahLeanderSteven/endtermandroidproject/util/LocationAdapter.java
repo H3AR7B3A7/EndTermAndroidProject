@@ -21,7 +21,7 @@ import java.util.List;
 import be.SabahLeanderSteven.endtermandroidproject.R;
 import be.SabahLeanderSteven.endtermandroidproject.model.Location;
 
-public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> implements Filterable{
+public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> implements Filterable {
 
     class LocationViewHolder extends RecyclerView.ViewHolder {
         // Fields
@@ -31,6 +31,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
         // Constructor
         LocationViewHolder(@NonNull View itemView) {
             super(itemView);
+            //rij nummer zoveel =>  getAdapterPosition();
             // Constructor params
             this.photoIV = itemView.findViewById(R.id.card_iv);
             this.charactersTV = itemView.findViewById(R.id.card_characters_tv);
@@ -77,17 +78,18 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
 
             switch (currentLocation.getType()) {
                 case "COMICS":
-                if (!currentLocation.getPhoto().equals("Unspecified")) {
-                    String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
-                            + currentLocation.getPhoto()
-                            + "/download";
-                    Picasso.get().load(path).into(holder.photoIV);
-                } break;
+                    if (!currentLocation.getPhoto().equals("Unspecified")) {
+                        String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
+                                + currentLocation.getPhoto()
+                                + "/download";
+                        Picasso.get().load(path).into(holder.photoIV);
+                    }
+                    break;
                 case "GRAFFITI":
-                if (!currentLocation.getPhoto().equals("Unspecified")){
-                    String path = "https://opendata.brussel.be/explore/dataset/street-art/files/"+currentLocation.getPhoto()+"/download";
-                    Picasso.get().load(path).into(holder.photoIV);
-                }
+                    if (!currentLocation.getPhoto().equals("Unspecified")) {
+                        String path = "https://opendata.brussel.be/explore/dataset/street-art/files/" + currentLocation.getPhoto() + "/download";
+                        Picasso.get().load(path).into(holder.photoIV);
+                    }
             }
         }
     }

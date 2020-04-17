@@ -22,6 +22,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import be.SabahLeanderSteven.endtermandroidproject.fragments.AboutFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.HomeFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.ListFragment;
 import be.SabahLeanderSteven.endtermandroidproject.fragments.MapFragment;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * SIDEBAR NAVIGATION
      */
-    private NavigationView.OnNavigationItemSelectedListener sidebarListener = new NavigationView.OnNavigationItemSelectedListener(){
+    private NavigationView.OnNavigationItemSelectedListener sidebarListener = new NavigationView.OnNavigationItemSelectedListener() {
         /**
          * ON NAVIGATION ITEM SELECTED
          * @param item: selected menu item from sidebar
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
             Fragment newHomeFragment = null;
 
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.comics_pressed:
                     currentDataSelected = "COMICS";
                     newHomeFragment = HomeFragment.newInstance(currentDataSelected);
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = ListFragment.newInstance(currentDataSelected);
                     break;
                 case R.id.nav_info:
-                    selectedFragment = HomeFragment.newInstance(currentDataSelected);
+                    selectedFragment = AboutFragment.newInstance();
                     break;
             }
 
@@ -162,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject fields = jsonArray.getJSONObject(i).getJSONObject("fields");
 
                         final Location currentLocation = new Location(
+
                                 Integer.parseInt(fields.getString("annee")),
                                 (fields.has("personnage_s")) ? fields.getString("personnage_s") : "Unspecified",
                                 fields.getString("auteur_s"),
@@ -186,10 +188,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void fetchGraffitiLocations(){
+    private void fetchGraffitiLocations() {
         SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
-        if (!sharedPreferences.contains(GRAFFITI)){
-            threadExecutor.execute(()->{
+        if (!sharedPreferences.contains(GRAFFITI)) {
+            threadExecutor.execute(() -> {
                 Log.e("DATA", "Start fetching GRAFFITI");
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
@@ -206,11 +208,11 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject fields = jsonArray.getJSONObject(i).getJSONObject("fields");
 
                         final Location currentLocation = new Location(
-                            (fields.has("annee")) ? Integer.parseInt(fields.getString("annee")) : 9999,
-                            (fields.has("name_of_the_work")) ? fields.getString("name_of_the_work") : "Unspecified",
-                            (fields.has("naam_van_de_kunstenaar")) ? fields.getString("naam_van_de_kunstenaar") : "Unspecified",
-                            (fields.has("photo")) ? fields.getJSONObject("photo").getString("id") : "Unspecified",
-                            "GRAFFITI",
+                                (fields.has("annee")) ? Integer.parseInt(fields.getString("annee")) : 9999,
+                                (fields.has("name_of_the_work")) ? fields.getString("name_of_the_work") : "Unspecified",
+                                (fields.has("naam_van_de_kunstenaar")) ? fields.getString("naam_van_de_kunstenaar") : "Unspecified",
+                                (fields.has("photo")) ? fields.getJSONObject("photo").getString("id") : "Unspecified",
+                                "GRAFFITI",
                                 fields.getJSONArray("geocoordinates").getDouble(0),
                                 fields.getJSONArray("geocoordinates").getDouble(1)
                         );
@@ -231,20 +233,20 @@ public class MainActivity extends AppCompatActivity {
     /**
      * SAVE DATA STATES for COMICS and GRAFFITI
      */
-    public void saveComicsDataState(){
+    public void saveComicsDataState() {
         comicsInDB = true;
 
-        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putBoolean(COMICS, comicsInDB);
         editor.apply();
     }
 
-    public void saveGraffitiDataState(){
+    public void saveGraffitiDataState() {
         graffitiInDB = true;
 
-        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putBoolean(GRAFFITI, graffitiInDB);
@@ -254,12 +256,12 @@ public class MainActivity extends AppCompatActivity {
     /**
      * LOAD DATA STATES for COMICS and GRAFFITI
      */
-    public void loadComicsDataState(){
+    public void loadComicsDataState() {
         SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
         comicsInDB = sharedPreferences.getBoolean(COMICS, false);
     }
 
-    public void loadGraffitiDataState(){
+    public void loadGraffitiDataState() {
         SharedPreferences sharedPreferences = getSharedPreferences(DATA_STATE, MODE_PRIVATE);
         graffitiInDB = sharedPreferences.getBoolean(GRAFFITI, false);
     }

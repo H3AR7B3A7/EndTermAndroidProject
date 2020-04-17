@@ -30,7 +30,7 @@ import be.SabahLeanderSteven.endtermandroidproject.R;
 import be.SabahLeanderSteven.endtermandroidproject.model.Location;
 import be.SabahLeanderSteven.endtermandroidproject.model.LocationViewModel;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private static final String SUBJECT = "argSubject";
     private String subject; // Use this as id for sidebar selection
@@ -40,20 +40,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private AppCompatActivity mContext;
     private final LatLng Brussel = new LatLng(50.858712, 4.347446);
 
-
-    /**
-     * FACTORY METHOD
-     * @return new Instance of MapFragment
-     *
-     */
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mContext = (AppCompatActivity) context;
 
     }
-    public static MapFragment newInstance(String subject){
+
+    public static MapFragment newInstance(String subject) {
         MapFragment mapFragment = new MapFragment();
         Bundle args = new Bundle();
         args.putString(SUBJECT, subject);
@@ -77,58 +71,49 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
 
     @Override
-    public void onMapReady (GoogleMap googleMap){
+    public void onMapReady(GoogleMap googleMap) {
         myMap = googleMap;
         CameraUpdate locationBrussel = CameraUpdateFactory.newLatLngZoom(Brussel, 12);
         myMap.animateCamera(locationBrussel);
+        myMap.setOnInfoWindowClickListener(this);
         drawMarkers();
 
-        //optioneel layout voor de kadertjes
-            /* als je de infowindow een eigen layout wil meegeven doen we dit via een adapter.
-            myMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                @Override
-                public View getInfoWindow(Marker marker) {
-                    return null;
-                }
-                @Override
-                public View getInfoContents(Marker marker) {
-                    return null;
-                }
-            });*/
+
     }
 
-    /**
-     * GOOGLE MAP LIFECYCLE
-     */
     @Override
-    public void onResume () {
+    public void onResume() {
         super.onResume();
         mapView.onResume();
     }
+
     @Override
-    public void onPause () {
+    public void onPause() {
         super.onPause();
         mapView.onPause();
     }
+
     @Override
-    public void onDestroy () {
+    public void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
     }
+
     @Override
-    public void onLowMemory () {
+    public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
     @Override
-    public void onSaveInstanceState (@NonNull Bundle outState){
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
 
     private void drawMarkers() {
         // get argument from instance created to pass to getAllLocationsOfType
-        if (getArguments() != null){
+        if (getArguments() != null) {
             subject = getArguments().getString(SUBJECT);
         }
         //methode om pinnekes op u kaart te krijgen.
@@ -142,18 +127,30 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 //data omzetten naar pinnetjes
 
                 //step1 = alle data overlopen via loop
-                for( Location currentLocation : locations  ){
+                for (Location currentLocation : locations) {
                     //step2 marker aanmaken
                     Marker m = myMap.addMarker(new MarkerOptions()
                             .position(new LatLng(currentLocation.getGeoLat(), currentLocation.getGeolong()))
                             .title(currentLocation.getCharacters())
+                            .snippet(currentLocation.getAuthors())
                     );
-                    //coordinaat omzetten naar adres:
+                    m.setTag(currentLocation);
                 }
             }
         });
-
     }
 
-
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        //welke pin was het
+        Location detailLocation = (Location) marker.getTag();
+        //naar waar navigeren
+        DetailsFragment df = DetailsFragment.newInstance(detailLocation);
+        //navigatie
+        mContext.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, df)
+                .addToBackStack("BACK")
+                .commit();
+    }
 }

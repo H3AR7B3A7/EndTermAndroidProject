@@ -11,26 +11,28 @@ class LocationRepository {
 
     private LocationDAO mLocationDao;
 
-    LocationRepository(Application application){
+    LocationRepository(Application application) {
         LocationRoomDB db = LocationRoomDB.getDatabase(application);
         mLocationDao = db.locationDAO();
     }
 
-    LiveData<List<Location>> getAllLocations(){
+    LiveData<List<Location>> getAllLocations() {
         return mLocationDao.getAllLocations();
     }
 
-    LiveData<List<Location>> getAllLocationsOfType(String type) { return mLocationDao.getAllLocationsOfType(type); }
+    LiveData<List<Location>> getAllLocationsOfType(String type) {
+        return mLocationDao.getAllLocationsOfType(type);
+    }
 
-    void insert(Location location){
+    void insert(Location location) {
         new insertAsyncTask(mLocationDao).execute(location);
     }
 
-    private static class insertAsyncTask extends AsyncTask<Location, Void, Void>{
+    private static class insertAsyncTask extends AsyncTask<Location, Void, Void> {
 
         private LocationDAO mAcyncTaskDao;
 
-        insertAsyncTask(LocationDAO dao){
+        insertAsyncTask(LocationDAO dao) {
             mAcyncTaskDao = dao;
         }
 

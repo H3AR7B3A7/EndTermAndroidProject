@@ -14,11 +14,13 @@ import be.SabahLeanderSteven.endtermandroidproject.R;
 public class AboutFragment extends Fragment {
 
 
-
     public AboutFragment() {
 
     }
 
+    public static Fragment newInstance() {
+        return new AboutFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

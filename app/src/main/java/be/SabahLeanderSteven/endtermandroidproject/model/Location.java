@@ -13,7 +13,7 @@ public class Location {
     private String characters, authors, photo, type;
     private double geoLat, geolong;
 
-    public Location( int year, String characters, String authors, String photo, String type, double geoLat, double geolong) {
+    public Location(int year, String characters, String authors, String photo, String type, double geoLat, double geolong) {
         this.year = year;
         this.characters = characters;
         this.authors = authors;

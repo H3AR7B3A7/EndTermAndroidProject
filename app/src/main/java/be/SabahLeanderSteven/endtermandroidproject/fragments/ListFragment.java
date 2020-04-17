@@ -23,9 +23,6 @@ import be.SabahLeanderSteven.endtermandroidproject.model.Location;
 import be.SabahLeanderSteven.endtermandroidproject.model.LocationViewModel;
 import be.SabahLeanderSteven.endtermandroidproject.util.LocationAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ListFragment extends Fragment {
 
     private static final String SUBJECT = "argSubject";
@@ -38,10 +35,7 @@ public class ListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * FACTORY METHOD
-     * @return new Instance of ListFragment
-     */
+
     public static ListFragment newInstance(String subject) {
         ListFragment listFragment = new ListFragment();
         Bundle args = new Bundle();
@@ -57,22 +51,13 @@ public class ListFragment extends Fragment {
         this.mContext = (AppCompatActivity) context;
     }
 
-    /**
-     * ON CREATE VIEW METHOD
-     * @param inflater:           LayoutInflater for fragment_list
-     * @param container:          ViewGroup to inflate layout in
-     * @param savedInstanceState: Bundle to pass saved instance state
-     * @return Inflation of List Fragment
-     */
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             subject = getArguments().getString(SUBJECT);
         }
         String sideBarItemID = subject;
