@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.squareup.picasso.Picasso;
 
 import be.SabahLeanderSteven.endtermandroidproject.R;
 import be.SabahLeanderSteven.endtermandroidproject.model.Location;
@@ -46,6 +47,10 @@ public class DetailsFragment extends Fragment {
         authors_tv.setText(currentLocation.getAuthors());
         characters_tv.setText(currentLocation.getCharacters());
         year_tv.setText("" + currentLocation.getYear());
+        String path = "https://opendata.brussel.be/explore/dataset/striproute0/files/"
+                + currentLocation.getPhoto()
+                + "/download";
+        Picasso.get().load(path).into(imageView);
 
 
         return rootView;
