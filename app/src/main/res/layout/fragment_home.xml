@@ -35,11 +35,9 @@
 
             <ImageView
                 android:id="@+id/logo_iv"
-                android:layout_width="240dp"
-                android:layout_height="114dp"
+                android:layout_width="153dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/logo_large"
                 android:tint="@color/colorPrimaryDark"
@@ -51,21 +49,20 @@
                 android:id="@+id/subject_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="70dp"
-                android:layout_marginRight="70dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="150dp"
+                android:layout_marginRight="150dp"
                 android:text="@string/comics"
                 android:textColor="@color/colorSecondary"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/logo_iv" />
+                app:layout_constraintTop_toBottomOf="@+id/about_ib" />
 
             <ImageButton
                 android:id="@+id/about_ib"
                 android:layout_width="259dp"
                 android:layout_height="230dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@color/colorPrimaryLight"
@@ -76,8 +73,8 @@
 
             <TextView
                 android:id="@+id/tv_inleiding"
-                android:layout_width="267dp"
-                android:layout_height="156dp"
+                android:layout_width="259dp"
+                android:layout_height="245dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
