@@ -1,7 +1,7 @@
 # EndTermAndroidProject
 End term assignment for the city of Brussels
 
-Authors: 	leonaire87 &amp; Sabahdo &amp; H3AR7B3A7<br>
+Authors: 	[leonaire87](https://github.com/leonaire87) &amp; [Sabahdo](https://github.com/Sabahdo) &amp; [H3AR7B3A7](https://github.com/H3AR7B3A7)<br>
 Property of: Erasmus highschool of Brussels
 
 The assignment was to create an application for the city of Brussels.
